@@ -713,12 +713,15 @@ GM_configField.prototype = {
         if (isNaN(num) || (type.substr(0, 3) == 'int' &&
             Math.ceil(num) != Math.floor(num)) ||
             (unsigned && num < 0)) {
-          alert(warn + '.');
+          //alert(warn + '.');
+          node.classList.add('error');
           return null;
         }
 
-        if (!this._checkNumberRange(num, warn))
+        if (!this._checkNumberRange(num, warn)) {
+          node.classList.add('error');
           return null;
+        }
         rval = num;
         break;
       default:
@@ -777,12 +780,12 @@ GM_configField.prototype = {
   _checkNumberRange: function(num, warn) {
     var field = this.settings;
     if (typeof field.min == "number" && num < field.min) {
-      alert(warn + ' greater than or equal to ' + field.min + '.');
+      //alert(warn + ' greater than or equal to ' + field.min + '.');
       return null;
     }
 
     if (typeof field.max == "number" && num > field.max) {
-      alert(warn + ' less than or equal to ' + field.max + '.');
+      //alert(warn + ' less than or equal to ' + field.max + '.');
       return null;
     }
     return true;
